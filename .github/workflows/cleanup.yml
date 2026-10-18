@@ -1,0 +1,24 @@
+# Deletes builds whose time is up. See "How builds expire" in the README.
+name: Delete expired builds
+
+on:
+  schedule:
+    # Twice an hour, away from the top of the hour, when GitHub's scheduler is busiest.
+    - cron: "7,37 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cleanup
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - run: node tools/release.mjs cleanup
+        env:
+          GH_TOKEN: ${{ github.token }}

@@ -1,0 +1,11 @@
+# Builds go up as release assets (tools/release.mjs upload), never into git history.
+*.zip
+*.7z
+*.rar
+*.exe
+*.apk
+*.aab
+*.ipa
+*.dmg
+*.pkg
+*.[0-9][0-9][0-9]
